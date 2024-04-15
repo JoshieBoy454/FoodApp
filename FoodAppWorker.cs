@@ -9,16 +9,23 @@ namespace FoodApp
 {
     public class FoodAppWorker
     {
+        ArrayList recipeArray = new ArrayList();
         ArrayList ingredientArray = new ArrayList();
         ArrayList stepArray = new ArrayList();
-
-        public String step { get; set; }
         public class ingredient
         {
             public String name { get; set; }
             public String quantity { get; set; }
             public String measurement { get; set; }
         }
+
+        public class recipe
+        {
+            public String step { get; set; }
+            public ingredient ingredient { get; set; }
+        }
+        
+        
 
         public void recipeInputDetails()
         {
