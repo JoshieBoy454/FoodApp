@@ -13,9 +13,14 @@ namespace FoodApp
         ArrayList stepArray = new ArrayList();
 
         public String step { get; set; }
-        public String ingredient { get; set; }
+        public class ingredient
+        {
+            public String name { get; set; }
+            public String quantity { get; set; }
+            public String measurement { get; set; }
+        }
 
-        public void recipeDetails()
+        public void recipeInputDetails()
         {
             Console.WriteLine("How many ingredients does the recipe have.");
             int ingredientNo = Convert.ToInt32(Console.ReadLine());
@@ -32,6 +37,22 @@ namespace FoodApp
                 Console.WriteLine("Enter the step: ");
                 stepArray.Add(Console.ReadLine());
             }
-        }   
+
+        }
+
+        public void recipePrint()
+        {
+            Console.WriteLine("Ingredients: ");
+            foreach (String ingredient in ingredientArray)
+            {
+                Console.WriteLine(ingredient);
+            }
+
+            Console.WriteLine("Steps: ");
+            foreach (String step in stepArray)
+            {
+                Console.WriteLine(step);
+            }
+        }
     }
 }
