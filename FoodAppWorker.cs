@@ -92,27 +92,37 @@ namespace FoodApp
             Console.WriteLine("-----------------------------------");
 
         }
-        //public void Menu()
-        //{          Console.WriteLine("1. Add a recipe");
-        //           Console.WriteLine("2. Print a recipe");
-        //           Console.WriteLine("3. Exit");
-        //           Console.WriteLine("Enter your choice: ");
-        //           int choice = Convert.ToInt32(Console.ReadLine());
-        //           switch (choice)
-        //    {
-        //        case 1:
-        //            recipeInputDetails();
-        //            break;
-        //        case 2:
-        //            recipePrint();
-        //            break;
-        //        case 3:
-        //            Environment.Exit(0);
-        //            break;
-        //        default:
-        //            Console.WriteLine("Invalid choice");
-        //            break;
-        //    }
-        //}
+        public void Menu()
+        {
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("1. Add a recipe");
+            Console.WriteLine("2. Print a recipe");
+            Console.WriteLine("3. Scale recipe ingredients");
+            Console.WriteLine("4. Reset recipe");
+            Console.WriteLine("5. Exit");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("Enter your choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    recipeInputDetails(newRecipe);
+                    break;
+                case 2:
+                    recipePrint(newRecipe);
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice");
+                    break;
+            }
+        }
     }
 }
