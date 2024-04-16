@@ -42,7 +42,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## GitHub link
 
-
+https://github.com/JoshieBoy454/FoodApp.git
 
 ## GitHub commits
 
