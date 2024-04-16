@@ -45,3 +45,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 ## GitHub commits
+
+![Screenshot (15)](https://github.com/JoshieBoy454/FoodApp/assets/130691091/0bb14583-08be-4fe6-bd7d-2595b7e3a39d)
