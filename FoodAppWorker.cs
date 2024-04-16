@@ -70,6 +70,7 @@ namespace FoodApp
                 newRecipe.step.Add(Console.ReadLine());
             }
             recipeArray.Add(newRecipe);
+            Menu();
         }
 
         public void recipePrint(recipe newRecipe)
@@ -89,7 +90,7 @@ namespace FoodApp
                 i++;
             }
             Console.WriteLine("-----------------------------------");
-
+            Menu();
         }
 
 
@@ -101,6 +102,7 @@ namespace FoodApp
             {
                 ingredient.quantity = (Convert.ToInt32(ingredient.quantity) * scale).ToString();
             }
+            Menu();
         }
 
         public void resetScale(recipe newRecipe)
@@ -109,6 +111,7 @@ namespace FoodApp
             {
                 ingredient.quantity = (Convert.ToInt32(ingredient.quantity) / scale).ToString();
             }
+            Menu();
         }
         public void Menu()
         {
@@ -141,8 +144,8 @@ namespace FoodApp
                     Console.WriteLine("Recipe reset");
                     Menu();
                     break;
-                    case 6:
-                        Environment.Exit(0);
+                case 6:
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Invalid choice");

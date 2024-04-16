@@ -13,8 +13,7 @@ namespace FoodApp
         {
             recipe newRecipe = new recipe();
             FoodAppWorker foodAppWorker = new FoodAppWorker();
-            foodAppWorker.recipeInputDetails(newRecipe);
-            foodAppWorker.recipePrint(newRecipe);
+            foodAppWorker.Menu();
         }
     }
 }
