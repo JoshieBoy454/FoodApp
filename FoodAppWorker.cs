@@ -123,6 +123,7 @@ namespace FoodApp
             Menu();
         }
 //----------------------------------------------------------------------------------------->
+        //resets the recipe to the original details
         public void resetRecipe(recipe newRecipe)
         {
             foreach(recipe r in recipeArray)
