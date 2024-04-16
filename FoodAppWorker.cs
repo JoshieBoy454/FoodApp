@@ -115,6 +115,9 @@ namespace FoodApp
 
                     break;
                 case 4:
+                    recipeArray.Clear();
+                    Console.WriteLine("Recipe reset");
+                    Menu();
                     break;
                 case 5:
                     Environment.Exit(0);
