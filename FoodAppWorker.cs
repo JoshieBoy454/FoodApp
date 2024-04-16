@@ -10,6 +10,7 @@ namespace FoodApp
     public class FoodAppWorker
     {
         ArrayList recipeArray = new ArrayList();
+        recipe newRecipe = new recipe();
 
         //ingredient class contains the name, quantity and measurement of the ingredient
         public class ingredient
@@ -22,32 +23,33 @@ namespace FoodApp
         public class recipe
         {
             //uses a list to have multiple steps and ingredients
-            public List<String> step { get; set; }
-            public List<ingredient> ingredient { get; set; }
+            public String name { get; set; }
+            public ArrayList step { get; set; }
+            public ArrayList ingredient { get; set; }
             public recipe()
             {
-                step = new List<String>();
-                ingredient = new List<ingredient>();
+                step = new ArrayList();
+                ingredient = new ArrayList();
             }
         }
         
         
         
-        public void recipeInputDetails()
+        public void recipeInputDetails(recipe newRecipe)
         {
-            recipe newRecipe = new recipe();
+            
 
             Console.WriteLine("Enter the name of the recipe: ");
-            String recipeName = Console.ReadLine();
+            newRecipe.name = Console.ReadLine();
 
             Console.WriteLine("Enter the number of ingredients: ");
-            int numIngredients = Convert.ToInt32(Console.ReadLine());
+            int ingredientNo = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Enter the number of steps: ");
-            int numSteps = Convert.ToInt32(Console.ReadLine());
+            int stepNo = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Enter the ingredients: ");
-            for (int i = 0; i < numIngredients; i++)
+            for (int i = 0; i < ingredientNo; i++)
             {
                 ingredient newIngredient = new ingredient();
 
@@ -63,7 +65,7 @@ namespace FoodApp
                 newRecipe.ingredient.Add(newIngredient);
             }
             Console.WriteLine("Enter the steps: ");
-            for (int i = 0; i < numSteps; i++)
+            for (int i = 0; i < stepNo; i++)
             {
                 Console.WriteLine("Enter step " + (i + 1) + ": ");
                 newRecipe.step.Add(Console.ReadLine());
@@ -71,19 +73,46 @@ namespace FoodApp
             recipeArray.Add(newRecipe);
         }
 
-        public void recipePrint()
+        public void recipePrint(recipe newRecipe)
         {
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine($"{newRecipe.name}" + " recipe:");
             Console.WriteLine("Ingredients: ");
-            foreach (String ingredient in ingredientArray)
+            foreach (ingredient ingredient in newRecipe.ingredient)
             {
-                Console.WriteLine(ingredient);
+                Console.WriteLine($"{ingredient.name}" + " - " + $"{ingredient.quantity}" + " " + $"{ingredient.measurement}");
             }
-
             Console.WriteLine("Steps: ");
-            foreach (String step in stepArray)
+            int i = 1;
+            foreach (String step in newRecipe.step)
             {
-                Console.WriteLine(step);
+                Console.WriteLine("Step " + i + ": " + $"{step}");
+                i++;
             }
+            Console.WriteLine("-----------------------------------");
+
         }
+        //public void Menu()
+        //{          Console.WriteLine("1. Add a recipe");
+        //           Console.WriteLine("2. Print a recipe");
+        //           Console.WriteLine("3. Exit");
+        //           Console.WriteLine("Enter your choice: ");
+        //           int choice = Convert.ToInt32(Console.ReadLine());
+        //           switch (choice)
+        //    {
+        //        case 1:
+        //            recipeInputDetails();
+        //            break;
+        //        case 2:
+        //            recipePrint();
+        //            break;
+        //        case 3:
+        //            Environment.Exit(0);
+        //            break;
+        //        default:
+        //            Console.WriteLine("Invalid choice");
+        //            break;
+        //    }
+        //}
     }
 }
