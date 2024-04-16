@@ -6,13 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FoodApp
-{
+{/// <summary>
+/// Joshua Gain 
+/// ST10369044
+/// PROG6221
+/// </summary>
     public class FoodAppWorker
     {
         ArrayList recipeArray = new ArrayList();
         recipe newRecipe = new recipe();
         int scale;
 
+//----------------------------------------------------------------------------------------->
         //ingredient class contains the name, quantity and measurement of the ingredient
         public class ingredient
         {
@@ -20,6 +25,7 @@ namespace FoodApp
             public String quantity { get; set; }
             public String measurement { get; set; }
         }
+//----------------------------------------------------------------------------------------->
         //recipe class contains the steps and ingredients of the recipe (ingredient object as an attribute of recpe onject)
         public class recipe
         {
@@ -33,7 +39,8 @@ namespace FoodApp
                 ingredient = new ArrayList();
             }
         }
-          
+//----------------------------------------------------------------------------------------->
+        //allows the use to input the details of the recipe aswell as amount of ingredients and steps
         public void recipeInputDetails(recipe newRecipe)
         {
             
@@ -72,7 +79,8 @@ namespace FoodApp
             recipeArray.Add(newRecipe);
             Menu();
         }
-
+//----------------------------------------------------------------------------------------->
+        //prints the recipe details
         public void recipePrint(recipe newRecipe)
         {
             Console.WriteLine("-----------------------------------");
@@ -92,8 +100,8 @@ namespace FoodApp
             Console.WriteLine("-----------------------------------");
             Menu();
         }
-
-
+//----------------------------------------------------------------------------------------->
+        //scales the recipe ingredients by a user inputted amount
         public void recipeScale(recipe newRecipe)
         {
             Console.WriteLine("Enter the amount you'd like to scale your recipe by: ");
@@ -104,7 +112,8 @@ namespace FoodApp
             }
             Menu();
         }
-
+//----------------------------------------------------------------------------------------->
+        //resets the recipe scale to the original amount
         public void resetScale(recipe newRecipe)
         {
             foreach (ingredient ingredient in newRecipe.ingredient)
@@ -113,6 +122,8 @@ namespace FoodApp
             }
             Menu();
         }
+//----------------------------------------------------------------------------------------->
+        //menu for the user to choose what they want to do
         public void Menu()
         {
             Console.WriteLine("-----------------------------------");
@@ -152,5 +163,6 @@ namespace FoodApp
                     break;
             }
         }
+//----------------------------------------------------------------------------------------->
     }
 }
