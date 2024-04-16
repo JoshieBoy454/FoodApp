@@ -43,8 +43,8 @@ namespace FoodApp
         //allows the use to input the details of the recipe aswell as amount of ingredients and steps
         public void recipeInputDetails(recipe newRecipe)
         {
-            
-
+            try 
+            { 
             Console.WriteLine("Enter the name of the recipe: ");
             newRecipe.name = Console.ReadLine();
 
@@ -76,6 +76,12 @@ namespace FoodApp
                 Console.WriteLine("Enter step " + (i + 1) + ": ");
                 newRecipe.step.Add(Console.ReadLine());
             }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Invalid input");
+                Menu();
+            }
             recipeArray.Add(newRecipe);
             Menu();
         }
@@ -83,21 +89,29 @@ namespace FoodApp
         //prints the recipe details
         public void recipePrint(recipe newRecipe)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-----------------------------------");
+            Console.ResetColor();
             Console.WriteLine($"{newRecipe.name}" + " recipe:");
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Ingredients: ");
+            Console.ResetColor();
             foreach (ingredient ingredient in newRecipe.ingredient)
             {
                 Console.WriteLine($"{ingredient.name}" + " - " + $"{ingredient.quantity}" + " " + $"{ingredient.measurement}");
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Steps: ");
+            Console.ResetColor();
             int i = 1;
             foreach (String step in newRecipe.step)
             {
                 Console.WriteLine("Step " + i + ": " + $"{step}");
                 i++;
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-----------------------------------");
+            Console.ResetColor();
             Menu();
         }
 //----------------------------------------------------------------------------------------->
