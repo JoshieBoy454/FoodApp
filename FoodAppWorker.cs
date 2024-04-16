@@ -11,6 +11,7 @@ namespace FoodApp
     {
         ArrayList recipeArray = new ArrayList();
         recipe newRecipe = new recipe();
+        int scale;
 
         //ingredient class contains the name, quantity and measurement of the ingredient
         public class ingredient
@@ -32,9 +33,7 @@ namespace FoodApp
                 ingredient = new ArrayList();
             }
         }
-        
-        
-        
+          
         public void recipeInputDetails(recipe newRecipe)
         {
             
@@ -92,14 +91,34 @@ namespace FoodApp
             Console.WriteLine("-----------------------------------");
 
         }
+
+
+        public void recipeScale(recipe newRecipe)
+        {
+            Console.WriteLine("Enter the amount you'd like to scale your recipe by: ");
+            scale = Convert.ToInt32(Console.ReadLine());
+            foreach (ingredient ingredient in newRecipe.ingredient)
+            {
+                ingredient.quantity = (Convert.ToInt32(ingredient.quantity) * scale).ToString();
+            }
+        }
+
+        public void resetScale(recipe newRecipe)
+        {
+            foreach (ingredient ingredient in newRecipe.ingredient)
+            {
+                ingredient.quantity = (Convert.ToInt32(ingredient.quantity) / scale).ToString();
+            }
+        }
         public void Menu()
         {
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("1. Add a recipe");
             Console.WriteLine("2. Print a recipe");
             Console.WriteLine("3. Scale recipe ingredients");
-            Console.WriteLine("4. Reset recipe");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("4. Reset recipe scale");
+            Console.WriteLine("5. Reset recipe");
+            Console.WriteLine("6. Exit");
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("Enter your choice: ");
             int choice = Convert.ToInt32(Console.ReadLine());
@@ -112,15 +131,18 @@ namespace FoodApp
                     recipePrint(newRecipe);
                     break;
                 case 3:
-
+                    recipeScale(newRecipe);
                     break;
                 case 4:
+                    resetScale(newRecipe);
+                    break;
+                case 5:
                     recipeArray.Clear();
                     Console.WriteLine("Recipe reset");
                     Menu();
                     break;
-                case 5:
-                    Environment.Exit(0);
+                    case 6:
+                        Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Invalid choice");
