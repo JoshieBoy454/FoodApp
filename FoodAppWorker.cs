@@ -123,6 +123,18 @@ namespace FoodApp
             Menu();
         }
 //----------------------------------------------------------------------------------------->
+        public void resetRecipe(recipe newRecipe)
+        {
+            foreach(recipe r in recipeArray)
+            {
+                r.name = null;
+                r.ingredient.Clear();
+                r.step.Clear();
+            }
+            Console.WriteLine("Recipe reset");
+            Menu();
+        }
+//----------------------------------------------------------------------------------------->
         //menu for the user to choose what they want to do
         public void Menu()
         {
@@ -151,9 +163,7 @@ namespace FoodApp
                     resetScale(newRecipe);
                     break;
                 case 5:
-                    recipeArray.Clear();
-                    Console.WriteLine("Recipe reset");
-                    Menu();
+                    resetRecipe(newRecipe);
                     break;
                 case 6:
                     Environment.Exit(0);
