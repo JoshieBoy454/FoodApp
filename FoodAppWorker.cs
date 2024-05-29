@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FoodApp
 {/// <summary>
@@ -12,7 +14,7 @@ namespace FoodApp
 /// PROG6221
 /// </summary>
 /// <Refernces>
-/// Link:
+/// Link:https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/creating-and-throwing-exceptions
 /// Link:
 /// Link:
 /// Link:
@@ -27,9 +29,9 @@ namespace FoodApp
         //allows the use to input the details of the recipe aswell as amount of ingredients and steps
         public void recipeInputDetails(recipe newRecipe)
         {
-            try 
-            { 
-            Console.WriteLine("Enter the name of the recipe: ");
+            try
+            {
+                Console.WriteLine("Enter the name of the recipe: ");
             newRecipe.name = Console.ReadLine();
 
             Console.WriteLine("Enter the number of ingredients: ");
@@ -61,9 +63,18 @@ namespace FoodApp
                 newRecipe.step.Add(Console.ReadLine());
             }
             }
+            catch(FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please enter a number.");
+                Console.ResetColor();
+                Menu();
+            }
             catch (Exception e)
             {
-                Console.WriteLine("Invalid input");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please try again.");
+                Console.ResetColor();
                 Menu();
             }
             recipeArray.Add(newRecipe);
@@ -106,15 +117,48 @@ namespace FoodApp
             {
                 Console.WriteLine("Enter the amount you'd like to scale your recipe by: ");
                 scale = Convert.ToDouble(Console.ReadLine());
+                //checks if the scale is less than zero or zero (throw)
+                if(scale < 0)
+                {
+                    throw new ArgumentOutOfRangeException("scale","Number cannot be less than zero.");
+                }
+                if (scale == 0)
+                {
+                    throw new ArgumentException("scale", "Number cannot be zero.");
+                }
+                
                 foreach (ingredient ingredient in newRecipe.ingredient)
                 {
                     ingredient.quantity = (Convert.ToInt32(ingredient.quantity) * scale).ToString();
                 }
                 Menu();
             }
-            catch (Exception e)
+            catch (FormatException)
             {
-                Console.WriteLine("Invalid input please enter a number");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please enter a number.");
+                Console.ResetColor();
+                Menu();
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Number cannot be less than zero please enter a non-negative number.");
+                Console.ResetColor();
+                Menu();
+            }
+            catch(ArgumentException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Number cannot be zero please enter a non-zero number.");
+                Console.ResetColor();
+                Menu();
+            }
+            catch(Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please enter a number.");
+                Console.ResetColor();
                 Menu();
             }
         }
@@ -132,22 +176,63 @@ namespace FoodApp
         //resets the recipe to the original details - asks the user to confirm
         public void resetRecipe(recipe newRecipe)
         {
-            Console.WriteLine("Are you sure you would like to reset your recipe?");
-            Console.WriteLine("1. Yes");
-            Console.WriteLine("2. No");
+            try
+            {
+                Console.WriteLine("Are you sure you would like to reset your recipe?");
+                Console.WriteLine("1. Yes");
+                Console.WriteLine("2. No");
+                int choice = Convert.ToInt32(Console.ReadLine());
 
-            int choice = Convert.ToInt32(Console.ReadLine());
-            if (choice == 1)
-            {
-                newRecipe.name = null;
-                newRecipe.ingredient.Clear();
-                newRecipe.step.Clear();
-                Console.WriteLine("Recipe reset");
+                if (scale < 0)
+                {
+                    throw new ArgumentOutOfRangeException("choice", "Number cannot be less than zero.");
+                }
+                if (scale == 0)
+                {
+                    throw new ArgumentException("choice", "Number cannot be zero.");
+                }
+
+                if (choice == 1)
+                {
+                    newRecipe.name = null;
+                    newRecipe.ingredient.Clear();
+                    newRecipe.step.Clear();
+                    Console.WriteLine("Recipe reset");
+                }
+                else if (choice == 2)
+                {
+                    Console.WriteLine("Recipe not reset");
+                }
             }
-            else if (choice == 2)
+            catch (FormatException)
             {
-                Console.WriteLine("Recipe not reset");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please enter a number");
+                Console.ResetColor();
+                Menu();
             }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Number cannot be less than zero please enter a non-negative number.");
+                Console.ResetColor();
+                Menu();
+            }
+            catch (ArgumentException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Number cannot be zero please enter a non-zero number.");
+                Console.ResetColor();
+                Menu();
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please try again.");
+                Console.ResetColor();
+                Menu();
+            }
+
             Menu();
         }
 //----------------------------------------------------------------------------------------->
@@ -187,16 +272,28 @@ namespace FoodApp
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Invalid choice please enter a number from 1-6");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid option please enter a number from 1-6");
+                        Console.ResetColor();
+                        Menu();
                         break;
                 }
             }
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please enter a number");
+                Console.ResetColor();
+                Menu();
+            }
             catch (Exception e)
             {
-                Console.WriteLine("Invalid input please enter a number");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please try again.");
+                Console.ResetColor();
                 Menu();
             }
         }
-//----------------------------------------------------------------------------------------->
+        //----------------------------------------------------------------------------------------->
     }
 }

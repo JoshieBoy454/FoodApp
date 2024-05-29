@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace FoodApp
 {
-    //recipe class contains the steps and ingredients of the recipe (ingredient object as an attribute of recpe onject)
+    //recipe class contains the steps and ingredients of the recipe (ingredient object stored as an attribute of recipe object)
     public class recipe
     {
-        //uses a list to have multiple steps and ingredients
+        //uses an arraylist to have multiple steps and ingredients
         public String name { get; set; }
         public ArrayList step { get; set; }
         public ArrayList ingredient { get; set; }
