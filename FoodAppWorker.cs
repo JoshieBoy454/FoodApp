@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -68,14 +69,14 @@ namespace FoodApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number.");
                 Console.ResetColor();
-                Menu();
+                recipeInputDetails(newRecipe);
             }
             catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please try again.");
                 Console.ResetColor();
-                Menu();
+                recipeInputDetails(newRecipe);
             }
             recipeArray.Add(newRecipe);
             Menu();
@@ -107,7 +108,7 @@ namespace FoodApp
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-----------------------------------");
             Console.ResetColor();
-            Menu();
+            recipePrint(newRecipe);
         }
 //----------------------------------------------------------------------------------------->
         //scales the recipe ingredients by a user inputted amount
@@ -138,28 +139,28 @@ namespace FoodApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number.");
                 Console.ResetColor();
-                Menu();
+                recipeScale(newRecipe);
             }
             catch(ArgumentOutOfRangeException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be less than zero please enter a non-negative number.");
                 Console.ResetColor();
-                Menu();
+                recipeScale(newRecipe);
             }
             catch(ArgumentException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be zero please enter a non-zero number.");
                 Console.ResetColor();
-                Menu();
+                recipeScale(newRecipe);
             }
             catch(Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number.");
                 Console.ResetColor();
-                Menu();
+                recipeScale(newRecipe);
             }
         }
 //----------------------------------------------------------------------------------------->
@@ -209,28 +210,28 @@ namespace FoodApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number");
                 Console.ResetColor();
-                Menu();
+                resetRecipe(newRecipe);
             }
             catch (ArgumentOutOfRangeException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be less than zero please enter a non-negative number.");
                 Console.ResetColor();
-                Menu();
+                resetRecipe(newRecipe);
             }
             catch (ArgumentException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be zero please enter a non-zero number.");
                 Console.ResetColor();
-                Menu();
+                resetRecipe(newRecipe);
             }
             catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please try again.");
                 Console.ResetColor();
-                Menu();
+                resetRecipe(newRecipe);
             }
 
             Menu();
