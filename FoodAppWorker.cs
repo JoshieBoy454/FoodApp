@@ -11,34 +11,18 @@ namespace FoodApp
 /// ST10369044
 /// PROG6221
 /// </summary>
+/// <Refernces>
+/// Link:
+/// Link:
+/// Link:
+/// Link:
+/// </Refernces>
     public class FoodAppWorker
     {
         ArrayList recipeArray = new ArrayList();
         recipe newRecipe = new recipe();
         double scale;
 
-//----------------------------------------------------------------------------------------->
-        //ingredient class contains the name, quantity and measurement of the ingredient
-        public class ingredient
-        {
-            public String name { get; set; }
-            public String quantity { get; set; }
-            public String measurement { get; set; }
-        }
-//----------------------------------------------------------------------------------------->
-        //recipe class contains the steps and ingredients of the recipe (ingredient object as an attribute of recpe onject)
-        public class recipe
-        {
-            //uses a list to have multiple steps and ingredients
-            public String name { get; set; }
-            public ArrayList step { get; set; }
-            public ArrayList ingredient { get; set; }
-            public recipe()
-            {
-                step = new ArrayList();
-                ingredient = new ArrayList();
-            }
-        }
 //----------------------------------------------------------------------------------------->
         //allows the use to input the details of the recipe aswell as amount of ingredients and steps
         public void recipeInputDetails(recipe newRecipe)
