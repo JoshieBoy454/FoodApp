@@ -63,3 +63,19 @@ https://github.com/JoshieBoy454/FoodApp.git
 5. **Resetting Recipe**: Choose option 5 from the menu to to be directed to a list of recipes to choose from or optionally to search for a specific recipe, it will then reset the selected recipe to it's original details.
 
 6. **Exiting the Application**: Choose option 6 from the menu to exit the application.
+
+## GitHub commits
+
+![Screenshot (1)](https://github.com/JoshieBoy454/FoodApp/assets/130691091/b229e564-13c7-4306-9cff-ea2f74bf37b3)
+
+## GitHub Link
+
+
+
+## Changes Part 1
+
+he changes made to part 1 of the application have significantly improved its structure and functionality. By separating the ingredient and recipe classes, the codebase is now more organized and easier to maintain. The addition of better try-catch functionality, including two throw blocks, enhances error handling and provides a more robust user experience. The implementation of a dictionary for conversion functionality streamlines unit conversions between different measurements.
+
+## Changes Part 2 
+
+In part 2 of the application, additional enhancements have been made to further improve the user experience. Generic collections have been implemented, replacing arrays with generic lists for both steps and ingredients, allowing for more flexibility and efficiency in handling data. Users can now add multiple recipes, which are stored for the duration of the application's runtime, providing a convenient way to manage and access recipes. Furthermore, a method to display the total calorie count has been added, giving users a quick overview of the nutritional information of their recipes. Additionally, the system now notifies the user if the total calorie count of their ingredients exceeds 300, helping them make healthier choices and avoid excessive calorie intake. Overall, these changes contribute to a more user-friendly and functional application.
