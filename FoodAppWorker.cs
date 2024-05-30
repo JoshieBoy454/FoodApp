@@ -9,25 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace FoodApp
-{/// <summary>
-/// Joshua Gain 
-/// ST10369044
-/// PROG6221
-/// </summary>
-/// <Refernces>
-/// Link:https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/creating-and-throwing-exceptions
-/// Link:https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
-/// Link:https://www.youtube.com/watch?v=QqWfw_CFR6Q
-/// Link:https://www.youtube.com/results?search_query=delegates+in+c%23
-/// Link:https://www.youtube.com/results?search_query=lambda+expression+c%23
-/// Link:https://www.youtube.com/results?search_query=generic+collections+in+c%23+
-/// Link:https://www.geeksforgeeks.org/collections-in-c-sharp/
-/// Link:https://stackoverflow.com/questions/6965337/sort-a-list-alphabetically
-/// Link:
-/// Link:
-/// Link:
-/// Link:
-/// </Refernces>
+{
     public class FoodAppWorker
     {
         ArrayList recipeArray = new ArrayList();
@@ -741,3 +723,4 @@ namespace FoodApp
 //----------------------------------------------------------------------------------------->
     }
 }
+//---------------------------------------END-OF-FILE--------------------------------------->
