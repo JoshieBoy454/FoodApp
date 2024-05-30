@@ -33,7 +33,7 @@ namespace FoodApp
         ArrayList recipeArray = new ArrayList();
         recipe newRecipe = new recipe();
         double scale;
-        // Assisted by ChatGPT
+        // Coded with help by ChatGPT
         // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
         Dictionary<(string from, string to), double> conversionFactors = new Dictionary<(string from, string to), double>
         {
@@ -196,6 +196,7 @@ namespace FoodApp
                 foreach (ingredient ingredient in newRecipe.ingredient)
                 {
                     ingredient.quantity = ingredient.quantity * scale;
+                    conversionLogic(newRecipe);
                 }
                 Menu();
             }
@@ -301,7 +302,171 @@ namespace FoodApp
 
             Menu();
         }
-//----------------------------------------------------------------------------------------->
+        //----------------------------------------------------------------------------------------->
+        //converts the measurement of the ingredients
+        public double ConvertMeasurement(double quantity, string from, string to)
+        {
+            if (conversionFactors.TryGetValue((from, to), out double factor))
+            {
+                return quantity * factor;
+            }
+            // No conversion if not found
+            return quantity; 
+        }
+        //----------------------------------------------------------------------------------------->
+        // conversion logic that implements the dictionary conversions by itterating through else ifs
+        // Coded with the help of ChatGPT
+        // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
+        public void conversionLogic(recipe newRecipe)
+        {
+            foreach (ingredient ingredient in newRecipe.ingredient)
+            {
+                // Teaspoon and Tablespoon
+                if (ingredient.measurement == "teaspoon" && ingredient.quantity >= 3)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "teaspoon", "tablespoon");
+                    ingredient.measurement = "tablespoon";
+                }
+                else if (ingredient.measurement == "tablespoon" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "tablespoon", "teaspoon");
+                    ingredient.measurement = "teaspoon";
+                }
+
+                // Teaspoon and Cup 
+                else if (ingredient.measurement == "teaspoon" && ingredient.quantity >= 48)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "teaspoon", "cup");
+                    ingredient.measurement = "cup";
+                }
+                else if (ingredient.measurement == "cup" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "teaspoon");
+                    ingredient.measurement = "teaspoon";
+                }
+
+                // Tablespoon and Cup
+                else if (ingredient.measurement == "tablespoon" && ingredient.quantity >= 16)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "tablespoon", "cup");
+                    ingredient.measurement = "cup";
+                }
+                else if (ingredient.measurement == "cup" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "tablespoon");
+                    ingredient.measurement = "tablespoon";
+                }
+
+                // Cup and Ounce
+                else if (ingredient.measurement == "cup" && ingredient.quantity >= 8)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "ounce");
+                    ingredient.measurement = "ounce";
+                }
+                else if (ingredient.measurement == "ounce" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "ounce", "cup");
+                    ingredient.measurement = "cup";
+                }
+
+                // Ounce and Pound
+                else if (ingredient.measurement == "ounce" && ingredient.quantity >= 16)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "ounce", "pound");
+                    ingredient.measurement = "pound";
+                }
+                else if (ingredient.measurement == "pound" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "pound", "ounce");
+                    ingredient.measurement = "ounce";
+                }
+
+                // Ounce and Gram
+                else if (ingredient.measurement == "ounce" && ingredient.quantity >= 28.3495)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "ounce", "gram");
+                    ingredient.measurement = "gram";
+                }
+                else if (ingredient.measurement == "gram" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "gram", "ounce");
+                    ingredient.measurement = "ounce";
+                }
+
+                // Pound and Kilogram
+                else if (ingredient.measurement == "pound" && ingredient.quantity >= 2.20462)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "pound", "kilogram");
+                    ingredient.measurement = "kilogram";
+                }
+                else if (ingredient.measurement == "kilogram" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "kilogram", "pound");
+                    ingredient.measurement = "pound";
+                }
+
+                // Liter and Milliliter
+                else if ((ingredient.measurement == "liter" || ingredient.measurement == "l" || ingredient.measurement == "L") && ingredient.quantity >= 1000)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, ingredient.measurement, "milliliter");
+                    ingredient.measurement = "milliliter";
+                }
+                else if (ingredient.measurement == "milliliter" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "milliliter", "liter");
+                    ingredient.measurement = "liter";
+                }
+
+                // Liter and Cup
+                else if ((ingredient.measurement == "liter" || ingredient.measurement == "l" || ingredient.measurement == "L") && ingredient.quantity >= 4.22675)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, ingredient.measurement, "cup");
+                    ingredient.measurement = "cup";
+                }
+                else if (ingredient.measurement == "cup" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "liter");
+                    ingredient.measurement = "liter";
+                }
+
+                // Quart and Cup
+                else if ((ingredient.measurement == "quart" || ingredient.measurement == "qt") && ingredient.quantity >= 4)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, ingredient.measurement, "cup");
+                    ingredient.measurement = "cup";
+                }
+                else if (ingredient.measurement == "cup" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "quart");
+                    ingredient.measurement = "quart";
+                }
+
+                // Gallon and Quart
+                else if ((ingredient.measurement == "gallon" || ingredient.measurement == "gal") && ingredient.quantity >= 4)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, ingredient.measurement, "quart");
+                    ingredient.measurement = "quart";
+                }
+                else if (ingredient.measurement == "quart" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "quart", "gallon");
+                    ingredient.measurement = "gallon";
+                }
+
+                // Gallon and Cup
+                else if ((ingredient.measurement == "gallon" || ingredient.measurement == "gal") && ingredient.quantity >= 16)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, ingredient.measurement, "cup");
+                    ingredient.measurement = "cup";
+                }
+                else if (ingredient.measurement == "cup" && ingredient.quantity >= 1)
+                {
+                    ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "gallon");
+                    ingredient.measurement = "gallon";
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------------->
         //menu for the user to choose what they want to do
         public void Menu()
         {
