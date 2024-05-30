@@ -46,7 +46,7 @@ https://github.com/JoshieBoy454/FoodApp.git
 
 ## GitHub commits
 
-![Screenshot (16)](https://github.com/JoshieBoy454/FoodApp/assets/130691091/b179b2df-f5df-40e7-a7c4-b3fd8e57679d)
+![Screenshot (29)](https://github.com/JoshieBoy454/FoodApp/assets/130691091/1639bfcb-6f8c-4bcc-9c99-934f6916e778)
 
 ## Update v.0.2
 
