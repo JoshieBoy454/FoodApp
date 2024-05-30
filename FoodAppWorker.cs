@@ -639,6 +639,7 @@ namespace FoodApp
             }
         }
         //----------------------------------------------------------------------------------------->
+        //calculates the total calories of the recipe
         public void calorieCalculation(recipe newRecipe)
         {
             foreach (ingredient ingredient in newRecipe.ingredient)
@@ -647,6 +648,7 @@ namespace FoodApp
             }
         }
         //----------------------------------------------------------------------------------------->
+        //calculates the calorie information of the recipe
         public void calInfo(recipe uniChoice)
         {
             if (uniChoice.totalCalories < 500)
