@@ -12,5 +12,7 @@ namespace FoodApp
         public String name { get; set; }
         public double quantity { get; set; }
         public String measurement { get; set; }
+        public String foodGroup { get; set; }
+        public double calories { get; set; }
     }
 }

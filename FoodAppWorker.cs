@@ -119,6 +119,13 @@ namespace FoodApp
 
                 Console.WriteLine("Enter the measurement of the ingredient: ");
                 newIngredient.measurement = Console.ReadLine();
+
+                Console.WriteLine("Enter the food group of the ingredient");
+                newIngredient.foodGroup = Console.ReadLine();
+
+                Console.WriteLine("Enter the calories of the ingredient");
+                newIngredient.calories = Convert.ToDouble(Console.ReadLine());
+
                 //adds an object of the ingredient class to the end of the ingredient list of the recipe object
                 newRecipe.ingredient.Add(newIngredient);
             }
@@ -152,25 +159,20 @@ namespace FoodApp
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-----------------------------------");
-            Console.ResetColor();
             Console.WriteLine($"{newRecipe.name}" + " recipe:");
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Ingredients: ");
-            Console.ResetColor();
             foreach (ingredient ingredient in newRecipe.ingredient)
             {
                 Console.WriteLine($"{ingredient.name}" + " - " + $"{ingredient.quantity}" + " " + $"{ingredient.measurement}");
             }
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Steps: ");
-            Console.ResetColor();
             int i = 1;
             foreach (String step in newRecipe.step)
             {
                 Console.WriteLine("Step " + i + ": " + $"{step}");
                 i++;
             }
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Total Calories: " + newRecipe.totalCalories);
             Console.WriteLine("-----------------------------------");
             Console.ResetColor();
             recipePrint(newRecipe);
@@ -198,6 +200,7 @@ namespace FoodApp
                     ingredient.quantity = ingredient.quantity * scale;
                     conversionLogic(newRecipe);
                 }
+                newRecipe.totalCalories = newRecipe.totalCalories * scale;
                 Menu();
             }
             catch (FormatException)
@@ -237,6 +240,7 @@ namespace FoodApp
             {
                 ingredient.quantity = ingredient.quantity / scale;
             }
+            newRecipe.totalCalories = newRecipe.totalCalories / scale;
             Menu();
         }
 //----------------------------------------------------------------------------------------->
@@ -264,6 +268,7 @@ namespace FoodApp
                     newRecipe.name = null;
                     newRecipe.ingredient.Clear();
                     newRecipe.step.Clear();
+                    newRecipe.totalCalories = 0;
                     Console.WriteLine("Recipe reset");
                 }
                 else if (choice == 2)
@@ -464,6 +469,14 @@ namespace FoodApp
                     ingredient.quantity = ConvertMeasurement(ingredient.quantity, "cup", "gallon");
                     ingredient.measurement = "gallon";
                 }
+            }
+        }
+        //----------------------------------------------------------------------------------------->
+        public void calorieCalculation(recipe newRecipe)
+        {
+            foreach (ingredient ingredient in newRecipe.ingredient)
+            {
+                newRecipe.totalCalories += ingredient.calories;
             }
         }
         //----------------------------------------------------------------------------------------->

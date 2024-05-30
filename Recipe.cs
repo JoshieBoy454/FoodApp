@@ -14,6 +14,7 @@ namespace FoodApp
         public String name { get; set; }
         public ArrayList step { get; set; }
         public ArrayList ingredient { get; set; }
+        public double totalCalories { get; set; }
         public recipe()
         {
             step = new ArrayList();
