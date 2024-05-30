@@ -33,6 +33,9 @@ namespace FoodApp
         ArrayList recipeArray = new ArrayList();
         double scale;
         List<recipe> recipeList = new List<recipe>();
+        // defined a delegate for the notifications
+        public delegate void CalorieNotificationDelegaet(recipe recipeName);
+        public event CalorieNotificationDelegaet CalorieExceeded;
         // Coded with help by ChatGPT
         // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
         Dictionary<(string from, string to), double> conversionFactors = new Dictionary<(string from, string to), double>
@@ -96,6 +99,8 @@ namespace FoodApp
         public void recipeInputDetails()
         {
             recipe newRecipe = new recipe();
+            //subscribes to the event to notify the user if the calories exceed 300
+            CalorieExceeded += NotifyCalorieExceeded;
 
             try
             {
@@ -127,14 +132,14 @@ namespace FoodApp
 
                 Console.WriteLine("Enter the calories of the ingredient");
                 newIngredient.calories = Convert.ToDouble(Console.ReadLine());
+                // calculates the total calories of the recipe
+                calorieCalculation(newRecipe, newIngredient);
 
                 //adds an object of the ingredient class to the end of the ingredient list of the recipe object
                 newRecipe.ingredient.Add(newIngredient);
             }
-            // calculates the total calories of the recipe
-            calorieCalculation(newRecipe);
 
-            Console.WriteLine("Enter the steps: ");
+                Console.WriteLine("Enter the steps: ");
             for (int i = 0; i < stepNo; i++)
             {
                 Console.WriteLine("Enter step " + (i + 1) + ": ");
@@ -474,7 +479,7 @@ namespace FoodApp
 
             Menu();
         }
-        //----------------------------------------------------------------------------------------->
+//----------------------------------------------------------------------------------------->
         //converts the measurement of the ingredients
         public double ConvertMeasurement(double quantity, string from, string to)
         {
@@ -485,7 +490,7 @@ namespace FoodApp
             // No conversion if not found
             return quantity; 
         }
-        //----------------------------------------------------------------------------------------->
+//----------------------------------------------------------------------------------------->
         // conversion logic that implements the dictionary conversions by itterating through else ifs
         // Coded with the help of ChatGPT
         // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
@@ -638,16 +643,26 @@ namespace FoodApp
                 }
             }
         }
-        //----------------------------------------------------------------------------------------->
+//----------------------------------------------------------------------------------------->
         //calculates the total calories of the recipe
-        public void calorieCalculation(recipe newRecipe)
+        public void calorieCalculation(recipe newRecipe, ingredient newIngredient)
         {
-            foreach (ingredient ingredient in newRecipe.ingredient)
+            
+            newRecipe.totalCalories += newIngredient.calories;
+            if (newRecipe.totalCalories > 300)
             {
-                newRecipe.totalCalories += ingredient.calories;
-            }
+                CalorieExceeded?.Invoke(newRecipe);
+            }   
+            
         }
-        //----------------------------------------------------------------------------------------->
+//----------------------------------------------------------------------------------------->
+        public void NotifyCalorieExceeded(recipe recipeName)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Caution: The recipe '{recipeName}' has exceeded 300 calories.");
+            Console.ResetColor();
+        }
+//----------------------------------------------------------------------------------------->
         //calculates the calorie information of the recipe
         public void calInfo(recipe uniChoice)
         {
@@ -664,7 +679,7 @@ namespace FoodApp
                 Console.WriteLine("This recipe has a large amount of calories in it. BEWARE! HEALTH RISK!");
             }
         }
-        //----------------------------------------------------------------------------------------->
+//----------------------------------------------------------------------------------------->
         //menu for the user to choose what they want to do
         public void Menu()
         {
@@ -723,6 +738,6 @@ namespace FoodApp
                 Menu();
             }
         }
-        //----------------------------------------------------------------------------------------->
+//----------------------------------------------------------------------------------------->
     }
 }
