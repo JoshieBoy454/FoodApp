@@ -31,8 +31,8 @@ namespace FoodApp
     public class FoodAppWorker
     {
         ArrayList recipeArray = new ArrayList();
-        recipe newRecipe = new recipe();
         double scale;
+        List<recipe> recipeList = new List<recipe>();
         // Coded with help by ChatGPT
         // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
         Dictionary<(string from, string to), double> conversionFactors = new Dictionary<(string from, string to), double>
@@ -93,11 +93,13 @@ namespace FoodApp
 
 //----------------------------------------------------------------------------------------->
         //allows the use to input the details of the recipe aswell as amount of ingredients and steps
-        public void recipeInputDetails(recipe newRecipe)
+        public void recipeInputDetails()
         {
+            recipe newRecipe = new recipe();
+
             try
             {
-                Console.WriteLine("Enter the name of the recipe: ");
+            Console.WriteLine("Enter the name of the recipe: ");
             newRecipe.name = Console.ReadLine();
 
             Console.WriteLine("Enter the number of ingredients: ");
@@ -129,78 +131,170 @@ namespace FoodApp
                 //adds an object of the ingredient class to the end of the ingredient list of the recipe object
                 newRecipe.ingredient.Add(newIngredient);
             }
+            // calculates the total calories of the recipe
+            calorieCalculation(newRecipe);
+
             Console.WriteLine("Enter the steps: ");
             for (int i = 0; i < stepNo; i++)
             {
                 Console.WriteLine("Enter step " + (i + 1) + ": ");
                 newRecipe.step.Add(Console.ReadLine());
             }
+                recipeList.Add(newRecipe);
             }
             catch(FormatException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number.");
                 Console.ResetColor();
-                recipeInputDetails(newRecipe);
+                recipeInputDetails();
             }
             catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please try again.");
                 Console.ResetColor();
-                recipeInputDetails(newRecipe);
+                recipeInputDetails();
             }
             recipeArray.Add(newRecipe);
             Menu();
         }
 //----------------------------------------------------------------------------------------->
         //prints the recipe details
-        public void recipePrint(recipe newRecipe)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine($"{newRecipe.name}" + " recipe:");
-            Console.WriteLine("Ingredients: ");
-            foreach (ingredient ingredient in newRecipe.ingredient)
-            {
-                Console.WriteLine($"{ingredient.name}" + " - " + $"{ingredient.quantity}" + " " + $"{ingredient.measurement}");
-            }
-            Console.WriteLine("Steps: ");
-            int i = 1;
-            foreach (String step in newRecipe.step)
-            {
-                Console.WriteLine("Step " + i + ": " + $"{step}");
-                i++;
-            }
-            Console.WriteLine("Total Calories: " + newRecipe.totalCalories);
-            Console.WriteLine("-----------------------------------");
-            Console.ResetColor();
-            recipePrint(newRecipe);
-        }
-//----------------------------------------------------------------------------------------->
-        //scales the recipe ingredients by a user inputted amount
-        public void recipeScale(recipe newRecipe)
+        public void recipePrint()
         {
             try
             {
-                Console.WriteLine("Enter the amount you'd like to scale your recipe by: ");
-                scale = Convert.ToDouble(Console.ReadLine());
-                //checks if the scale is less than zero or zero (throw)
-                if(scale < 0)
+                Console.WriteLine("Please select the recipe you'd like to print");
+                Console.WriteLine("1. Manual search.");
+                for (int x = 0; x < recipeList.Count; x++)
                 {
-                    throw new ArgumentOutOfRangeException("scale","Number cannot be less than zero.");
+                    Console.WriteLine(x + 2 + ". " + recipeList[x].name);
                 }
-                if (scale == 0)
+                int recipeChoice = Convert.ToInt32(Console.ReadLine());
+                if (recipeChoice == 1)
                 {
-                    throw new ArgumentException("scale", "Number cannot be zero.");
+                    Console.WriteLine("Enter the name of the recipe you would like to print: ");
+                    string recipeName = Console.ReadLine();
+                    recipe newRecipe = recipeList.Find(recipe => recipe.name == recipeName);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("-----------------------------------");
+                    Console.WriteLine($"{newRecipe.name}" + " recipe:");
+                    Console.WriteLine("Ingredients: ");
+                    foreach (ingredient ingredient in newRecipe.ingredient)
+                    {
+                        Console.WriteLine($"{ingredient.name}" + " - " + $"{ingredient.quantity}" + " " + $"{ingredient.measurement}");
+                    }
+                    Console.WriteLine("Steps: ");
+                    int i = 1;
+                    foreach (String step in newRecipe.step)
+                    {
+                        Console.WriteLine("Step " + i + ": " + $"{step}");
+                        i++;
+                    }
+                    Console.WriteLine("Total Calories: " + newRecipe.totalCalories);
+                    Console.WriteLine("-----------------------------------");
+                    Console.ResetColor();
                 }
-                
-                foreach (ingredient ingredient in newRecipe.ingredient)
+                else
                 {
-                    ingredient.quantity = ingredient.quantity * scale;
-                    conversionLogic(newRecipe);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("-----------------------------------");
+                    Console.WriteLine($"{recipeList[recipeChoice - 2].name}" + " recipe:");
+                    Console.WriteLine("Ingredients: ");
+                    foreach (ingredient ingredient in recipeList[recipeChoice - 2].ingredient)
+                    {
+                        Console.WriteLine($"{ingredient.name}" + " - " + $"{ingredient.quantity}" + " " + $"{ingredient.measurement}");
+                    }
+                    Console.WriteLine("Steps: ");
+                    int i = 1;
+                    foreach (String step in recipeList[recipeChoice - 2].step)
+                    {
+                        Console.WriteLine("Step " + i + ": " + $"{step}");
+                        i++;
+                    }
+                    Console.WriteLine("Total Calories: " + recipeList[recipeChoice - 2].totalCalories);
+                    Console.WriteLine("-----------------------------------");
+                    Console.ResetColor();
                 }
-                newRecipe.totalCalories = newRecipe.totalCalories * scale;
+            }
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please enter a number.");
+                Console.ResetColor();
+                recipePrint();
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input please try again.");
+                Console.ResetColor();
+                recipePrint();
+            }
+            
+            Menu();
+        }
+//----------------------------------------------------------------------------------------->
+        //scales the recipe ingredients by a user inputted amount
+        public void recipeScale()
+        {
+            try
+            {
+                Console.WriteLine("Please select the recipe you'd like to scale");
+                Console.WriteLine("1. Manual search.");
+                for (int x = 0; x < recipeList.Count; x++)
+                {
+                    Console.WriteLine(x + 2 + ". " + recipeList[x].name);
+                }
+                int recipeChoice = Convert.ToInt32(Console.ReadLine());
+                // uniChoice is used as a Universal Choice for the conversion method
+                recipe uniChoice = recipeList[recipeChoice - 2];
+                if (recipeChoice == 1)
+                {
+                    Console.WriteLine("Enter the name of the recipe you would like to scale: ");
+                    string recipeName = Console.ReadLine();
+                    recipe newRecipe = recipeList.Find(recipe => recipe.name == recipeName); 
+                    Console.WriteLine("Enter the amount you'd like to scale your recipe by: ");
+                    scale = Convert.ToDouble(Console.ReadLine());
+                    //checks if the scale is less than zero or zero (throw)
+                    if (scale < 0)
+                    {
+                        throw new ArgumentOutOfRangeException("scale", "Number cannot be less than zero.");
+                    }
+                    if (scale == 0)
+                    {
+                        throw new ArgumentException("scale", "Number cannot be zero.");
+                    }
+
+                    foreach (ingredient ingredient in newRecipe.ingredient)
+                    {
+                        ingredient.quantity = ingredient.quantity * scale;
+                        conversionLogic(uniChoice);
+                    }
+                    newRecipe.totalCalories = newRecipe.totalCalories * scale;
+                }
+                else
+                {
+                    Console.WriteLine("Enter the amount you'd like to scale your recipe by: ");
+                    scale = Convert.ToDouble(Console.ReadLine());
+                    //checks if the scale is less than zero or zero (throw)
+                    if (scale < 0)
+                    {
+                        throw new ArgumentOutOfRangeException("scale", "Number cannot be less than zero.");
+                    }
+                    if (scale == 0)
+                    {
+                        throw new ArgumentException("scale", "Number cannot be zero.");
+                    }
+
+                    foreach (ingredient ingredient in recipeList[recipeChoice - 2].ingredient)
+                    {
+                        ingredient.quantity = ingredient.quantity * scale;
+                        conversionLogic(uniChoice) ;
+                    }
+                    recipeList[recipeChoice - 2].totalCalories = recipeList[recipeChoice - 2].totalCalories * scale;
+                }
                 Menu();
             }
             catch (FormatException)
@@ -208,72 +302,137 @@ namespace FoodApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number.");
                 Console.ResetColor();
-                recipeScale(newRecipe);
+                recipeScale();
             }
             catch(ArgumentOutOfRangeException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be less than zero please enter a non-negative number.");
                 Console.ResetColor();
-                recipeScale(newRecipe);
+                recipeScale();
             }
             catch(ArgumentException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be zero please enter a non-zero number.");
                 Console.ResetColor();
-                recipeScale(newRecipe);
+                recipeScale();
             }
             catch(Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number.");
                 Console.ResetColor();
-                recipeScale(newRecipe);
+                recipeScale();
             }
         }
 //----------------------------------------------------------------------------------------->
         //resets the recipe scale to the original amount
-        public void resetScale(recipe newRecipe)
+        public void resetScale()
         {
-            foreach (ingredient ingredient in newRecipe.ingredient)
+            Console.WriteLine("Please select the recipe whose scale you'd like to reset.");
+            Console.WriteLine("1. Manual search.");
+            for (int x = 0; x < recipeList.Count; x++)
             {
-                ingredient.quantity = ingredient.quantity / scale;
+                Console.WriteLine(x + 2 + ". " + recipeList[x].name);
             }
-            newRecipe.totalCalories = newRecipe.totalCalories / scale;
+            int recipeChoice = Convert.ToInt32(Console.ReadLine());
+            if (recipeChoice == 1)
+            {
+                Console.WriteLine("Enter the name of the recipe whose scale you'd like to reset: ");
+                string recipeName = Console.ReadLine();
+                recipe newRecipe = recipeList.Find(recipe => recipe.name == recipeName);
+                foreach (ingredient ingredient in newRecipe.ingredient)
+                {
+                    ingredient.quantity = ingredient.quantity / scale;
+                }
+                newRecipe.totalCalories = newRecipe.totalCalories / scale;
+            }
+            else
+            {
+                foreach (ingredient ingredient in recipeList[recipeChoice - 2].ingredient)
+                {
+                    ingredient.quantity = ingredient.quantity / scale;
+                }
+                recipeList[recipeChoice - 2].totalCalories = recipeList[recipeChoice - 2].totalCalories / scale;
+            }
             Menu();
         }
 //----------------------------------------------------------------------------------------->
         //resets the recipe to the original details - asks the user to confirm
-        public void resetRecipe(recipe newRecipe)
+        public void resetRecipe()
         {
             try
             {
-                Console.WriteLine("Are you sure you would like to reset your recipe?");
-                Console.WriteLine("1. Yes");
-                Console.WriteLine("2. No");
-                int choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Please select the recipe you'd like to scale");
+                Console.WriteLine("1. Manual search.");
+                for (int x = 0; x < recipeList.Count; x++)
+                {
+                    Console.WriteLine(x + 2 + ". " + recipeList[x].name);
+                }
+                int recipeChoice = Convert.ToInt32(Console.ReadLine());
+                // uniChoice is used as a Universal Choice for the conversion method
+                recipe uniChoice = recipeList[recipeChoice - 2];
+                if (recipeChoice == 1)
+                {
+                    Console.WriteLine("Enter the name of the recipe you would like to scale: ");
+                    string recipeName = Console.ReadLine();
+                    recipe newRecipe = recipeList.Find(recipe => recipe.name == recipeName);
+                    Console.WriteLine("Are you sure you would like to reset your recipe?");
+                    Console.WriteLine("1. Yes");
+                    Console.WriteLine("2. No");
+                    int choice = Convert.ToInt32(Console.ReadLine());
 
-                if (scale < 0)
-                {
-                    throw new ArgumentOutOfRangeException("choice", "Number cannot be less than zero.");
-                }
-                if (scale == 0)
-                {
-                    throw new ArgumentException("choice", "Number cannot be zero.");
-                }
+                    if (scale < 0)
+                    {
+                        throw new ArgumentOutOfRangeException("choice", "Number cannot be less than zero.");
+                    }
+                    if (scale == 0)
+                    {
+                        throw new ArgumentException("choice", "Number cannot be zero.");
+                    }
 
-                if (choice == 1)
-                {
-                    newRecipe.name = null;
-                    newRecipe.ingredient.Clear();
-                    newRecipe.step.Clear();
-                    newRecipe.totalCalories = 0;
-                    Console.WriteLine("Recipe reset");
+                    if (choice == 1)
+                    {
+                        newRecipe.name = null;
+                        newRecipe.ingredient.Clear();
+                        newRecipe.step.Clear();
+                        newRecipe.totalCalories = 0;
+                        Console.WriteLine("Recipe reset");
+                    }
+                    else if (choice == 2)
+                    {
+                        Console.WriteLine("Recipe not reset");
+                    }
                 }
-                else if (choice == 2)
+                else
                 {
-                    Console.WriteLine("Recipe not reset");
+                    Console.WriteLine("Are you sure you would like to reset your recipe?");
+                    Console.WriteLine("1. Yes");
+                    Console.WriteLine("2. No");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+
+                    if (scale < 0)
+                    {
+                        throw new ArgumentOutOfRangeException("choice", "Number cannot be less than zero.");
+                    }
+                    if (scale == 0)
+                    {
+                        throw new ArgumentException("choice", "Number cannot be zero.");
+                    }
+
+                    if (choice == 1)
+                    {
+                        recipeList[recipeChoice - 2].name = null;
+                        recipeList[recipeChoice - 2].ingredient.Clear();
+                        recipeList[recipeChoice - 2].step.Clear();
+                        recipeList[recipeChoice - 2].totalCalories = 0;
+                        Console.WriteLine("Recipe reset");
+                    }
+                    else if (choice == 2)
+                    {
+                        Console.WriteLine("Recipe not reset");
+                    }
                 }
             }
             catch (FormatException)
@@ -281,28 +440,28 @@ namespace FoodApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please enter a number");
                 Console.ResetColor();
-                resetRecipe(newRecipe);
+                resetRecipe();
             }
             catch (ArgumentOutOfRangeException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be less than zero please enter a non-negative number.");
                 Console.ResetColor();
-                resetRecipe(newRecipe);
+                resetRecipe();
             }
             catch (ArgumentException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Number cannot be zero please enter a non-zero number.");
                 Console.ResetColor();
-                resetRecipe(newRecipe);
+                resetRecipe();
             }
             catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input please try again.");
                 Console.ResetColor();
-                resetRecipe(newRecipe);
+                resetRecipe();
             }
 
             Menu();
@@ -322,9 +481,9 @@ namespace FoodApp
         // conversion logic that implements the dictionary conversions by itterating through else ifs
         // Coded with the help of ChatGPT
         // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
-        public void conversionLogic(recipe newRecipe)
+        public void conversionLogic(recipe uniChoice)
         {
-            foreach (ingredient ingredient in newRecipe.ingredient)
+            foreach (ingredient ingredient in uniChoice.ingredient)
             {
                 // Teaspoon and Tablespoon
                 if (ingredient.measurement == "teaspoon" && ingredient.quantity >= 3)
@@ -498,19 +657,19 @@ namespace FoodApp
                 switch (choice)
                 {
                     case 1:
-                        recipeInputDetails(newRecipe);
+                        recipeInputDetails();
                         break;
                     case 2:
-                        recipePrint(newRecipe);
+                        recipePrint();
                         break;
                     case 3:
-                        recipeScale(newRecipe);
+                        recipeScale();
                         break;
                     case 4:
-                        resetScale(newRecipe);
+                        resetScale();
                         break;
                     case 5:
-                        resetRecipe(newRecipe);
+                        resetRecipe();
                         break;
                     case 6:
                         Environment.Exit(0);

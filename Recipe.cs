@@ -12,13 +12,13 @@ namespace FoodApp
     {
         //uses an arraylist to have multiple steps and ingredients
         public String name { get; set; }
-        public ArrayList step { get; set; }
-        public ArrayList ingredient { get; set; }
+        public List<string> step { get; set; }
+        public List<ingredient> ingredient { get; set; }
         public double totalCalories { get; set; }
         public recipe()
         {
-            step = new ArrayList();
-            ingredient = new ArrayList();
+            step = new List<string>();
+            ingredient = new List<ingredient>();
         }
     }
 }
