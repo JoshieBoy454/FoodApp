@@ -10,7 +10,7 @@ namespace FoodApp
     public class ingredient
     {
         public String name { get; set; }
-        public String quantity { get; set; }
+        public double quantity { get; set; }
         public String measurement { get; set; }
     }
 }

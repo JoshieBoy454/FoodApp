@@ -16,6 +16,14 @@ namespace FoodApp
 /// </summary>
 /// <Refernces>
 /// Link:https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/exceptions/creating-and-throwing-exceptions
+/// Link:https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
+/// Link:https://www.youtube.com/watch?v=QqWfw_CFR6Q
+/// Link:https://www.youtube.com/results?search_query=delegates+in+c%23
+/// Link:https://www.youtube.com/results?search_query=lambda+expression+c%23
+/// Link:https://www.youtube.com/results?search_query=generic+collections+in+c%23+
+/// Link:
+/// Link:
+/// Link:
 /// Link:
 /// Link:
 /// Link:
@@ -25,6 +33,63 @@ namespace FoodApp
         ArrayList recipeArray = new ArrayList();
         recipe newRecipe = new recipe();
         double scale;
+        // Assisted by ChatGPT
+        // Link: https://chatgpt.com/share/1aa67528-c4bc-4bbe-a49c-e9df633a8c63
+        Dictionary<(string from, string to), double> conversionFactors = new Dictionary<(string from, string to), double>
+        {
+            {("teaspoon","tablespon"), 1.0/3},
+            {("tsp","tbsp"), 1.0/3},
+            {("tablespoon","teaspoon"), 3},
+            {("tbsp", "tsp"), 3},
+            {("teaspoon", "cup"), 1.0 / 48},
+            {("tsp", "cup"), 1.0 / 48},
+            {("tablespoon", "cup"), 1.0 / 16},
+            {("tbsp", "cup"), 1.0 / 16},
+            {("cup", "teaspoon"), 48},
+            {("cup", "tsp"), 48},
+            {("cup", "tablespoon"), 16},
+            {("cup", "tbsp"), 16},
+            {("cup", "ounce"), 8},
+            {("cup", "oz"), 8},
+            {("ounce", "cup"), 1.0 / 8},
+            {("oz", "cup"), 1.0 / 8},
+            {("ounce", "pound"), 1.0 / 16},
+            {("oz", "lb"), 1.0 / 16},
+            {("pound", "ounce"), 16},
+            {("lb", "oz"), 16},
+            {("ounce", "gram"), 28.3495},
+            {("oz", "g"), 28.3495},
+            {("gram", "ounce"), 1.0 / 28.3495},
+            {("g", "oz"), 1.0 / 28.3495},
+            {("pound", "kilogram"), 1.0 / 2.20462},
+            {("lb", "kg"), 1.0 / 2.20462},
+            {("kilogram", "pound"), 2.20462},
+            {("kg", "lb"), 2.20462},
+            {("liter", "milliliter"), 1000},
+            {("l", "ml"), 1000},
+            {("L", "ml"), 1000},
+            {("milliliter", "liter"), 1.0 / 1000},
+            {("ml", "l"), 1.0 / 1000},
+            {("ml", "L"), 1.0 / 1000},
+            {("liter", "cup"), 4.22675},
+            {("l", "cup"), 4.22675},
+            {("L", "cup"), 4.22675},
+            {("cup", "liter"), 1.0 / 4.22675},
+            {("cup", "l"), 1.0 / 4.22675},
+            {("cup", "L"), 1.0 / 4.22675},
+            {("quart", "cup"), 4},
+            {("qt", "cup"), 4},
+            {("cup", "quart"), 1.0 / 4},
+            {("cup", "qt"), 1.0 / 4},
+            {("gallon", "quart"), 4},
+            {("gal", "qt"), 4},
+            {("quart", "gallon"), 1.0 / 4},
+            {("qt", "gal"), 1.0 / 4},
+            {("gallon", "cup"), 16},
+            {("gal", "cup"), 16},
+            {("cup", "gallon"), 1.0 / 16},
+            {("cup", "gal"), 1.0 / 16},
+        };
 
 //----------------------------------------------------------------------------------------->
         //allows the use to input the details of the recipe aswell as amount of ingredients and steps
@@ -50,7 +115,7 @@ namespace FoodApp
                 newIngredient.name = Console.ReadLine();
 
                 Console.WriteLine("Enter the quantity of the ingredient: ");
-                newIngredient.quantity = Console.ReadLine();
+                newIngredient.quantity = Convert.ToDouble(Console.ReadLine());
 
                 Console.WriteLine("Enter the measurement of the ingredient: ");
                 newIngredient.measurement = Console.ReadLine();
@@ -130,7 +195,7 @@ namespace FoodApp
                 
                 foreach (ingredient ingredient in newRecipe.ingredient)
                 {
-                    ingredient.quantity = (Convert.ToInt32(ingredient.quantity) * scale).ToString();
+                    ingredient.quantity = ingredient.quantity * scale;
                 }
                 Menu();
             }
@@ -169,7 +234,7 @@ namespace FoodApp
         {
             foreach (ingredient ingredient in newRecipe.ingredient)
             {
-                ingredient.quantity = (Convert.ToInt32(ingredient.quantity) / scale).ToString();
+                ingredient.quantity = ingredient.quantity / scale;
             }
             Menu();
         }
