@@ -21,8 +21,8 @@ namespace FoodApp
 /// Link:https://www.youtube.com/results?search_query=delegates+in+c%23
 /// Link:https://www.youtube.com/results?search_query=lambda+expression+c%23
 /// Link:https://www.youtube.com/results?search_query=generic+collections+in+c%23+
-/// Link:
-/// Link:
+/// Link:https://www.geeksforgeeks.org/collections-in-c-sharp/
+/// Link:https://stackoverflow.com/questions/6965337/sort-a-list-alphabetically
 /// Link:
 /// Link:
 /// Link:
@@ -167,11 +167,14 @@ namespace FoodApp
             {
                 Console.WriteLine("Please select the recipe you'd like to print");
                 Console.WriteLine("1. Manual search.");
+                recipeList.Sort();
                 for (int x = 0; x < recipeList.Count; x++)
                 {
                     Console.WriteLine(x + 2 + ". " + recipeList[x].name);
                 }
                 int recipeChoice = Convert.ToInt32(Console.ReadLine());
+                // uniChoice is used as a Universal Choice for the conversion method
+                recipe uniChoice = recipeList[recipeChoice - 2];
                 if (recipeChoice == 1)
                 {
                     Console.WriteLine("Enter the name of the recipe you would like to print: ");
@@ -193,6 +196,7 @@ namespace FoodApp
                         i++;
                     }
                     Console.WriteLine("Total Calories: " + newRecipe.totalCalories);
+                    calInfo(uniChoice);
                     Console.WriteLine("-----------------------------------");
                     Console.ResetColor();
                 }
@@ -214,6 +218,7 @@ namespace FoodApp
                         i++;
                     }
                     Console.WriteLine("Total Calories: " + recipeList[recipeChoice - 2].totalCalories);
+                    calInfo(uniChoice);
                     Console.WriteLine("-----------------------------------");
                     Console.ResetColor();
                 }
@@ -243,6 +248,7 @@ namespace FoodApp
             {
                 Console.WriteLine("Please select the recipe you'd like to scale");
                 Console.WriteLine("1. Manual search.");
+                recipeList.Sort();
                 for (int x = 0; x < recipeList.Count; x++)
                 {
                     Console.WriteLine(x + 2 + ". " + recipeList[x].name);
@@ -332,6 +338,7 @@ namespace FoodApp
         {
             Console.WriteLine("Please select the recipe whose scale you'd like to reset.");
             Console.WriteLine("1. Manual search.");
+            recipeList.Sort();
             for (int x = 0; x < recipeList.Count; x++)
             {
                 Console.WriteLine(x + 2 + ". " + recipeList[x].name);
@@ -366,6 +373,7 @@ namespace FoodApp
             {
                 Console.WriteLine("Please select the recipe you'd like to scale");
                 Console.WriteLine("1. Manual search.");
+                recipeList.Sort();
                 for (int x = 0; x < recipeList.Count; x++)
                 {
                     Console.WriteLine(x + 2 + ". " + recipeList[x].name);
@@ -636,6 +644,22 @@ namespace FoodApp
             foreach (ingredient ingredient in newRecipe.ingredient)
             {
                 newRecipe.totalCalories += ingredient.calories;
+            }
+        }
+        //----------------------------------------------------------------------------------------->
+        public void calInfo(recipe uniChoice)
+        {
+            if (uniChoice.totalCalories < 500)
+            {
+                Console.WriteLine("This recipe has a low amount of calories in it.");
+            }
+            else if (uniChoice.totalCalories >= 500 && uniChoice.totalCalories < 1000)
+            {
+                Console.WriteLine("This recipe has a moderate amount of calories in it.");
+            }
+            else
+            {
+                Console.WriteLine("This recipe has a large amount of calories in it. BEWARE! HEALTH RISK!");
             }
         }
         //----------------------------------------------------------------------------------------->
