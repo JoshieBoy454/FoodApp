@@ -48,3 +48,18 @@ https://github.com/JoshieBoy454/FoodApp.git
 
 ![Screenshot (16)](https://github.com/JoshieBoy454/FoodApp/assets/130691091/b179b2df-f5df-40e7-a7c4-b3fd8e57679d)
 
+## Update v.0.2
+
+## Instructions
+
+1. **Adding a Recipe**: Choose option 1 from the menu and follow the prompts to input the name, ingredients, quantity, calories, food group and steps.
+
+2. **Printing a Recipe**: Choose option 2 from the menu to be directed to a list of recipes to choose from or optionally to search for a specific recipe, it will then print the details the selected recipe.
+
+3. **Scaling Recipe Ingredients**: Choose option 3 from the menu to to be directed to a list of recipes to choose from or optionally to search for a specific recipe, it will then scale the quantities of all ingredients in a recipe by a specified factor.
+
+4. **Resetting Recipe Scale**: Choose option 4 from the menu to to be directed to a list of recipes to choose from or optionally to search for a specific recipe, it will then reset the scaled quantities of ingredients back to their original values.
+
+5. **Resetting Recipe**: Choose option 5 from the menu to to be directed to a list of recipes to choose from or optionally to search for a specific recipe, it will then reset the selected recipe to it's original details.
+
+6. **Exiting the Application**: Choose option 6 from the menu to exit the application.
