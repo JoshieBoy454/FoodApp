@@ -80,3 +80,25 @@ he changes made to part 1 of the application have significantly improved its str
 ## Changes Part 2 
 
 In part 2 of the application, additional enhancements have been made to further improve the user experience. Generic collections have been implemented, replacing arrays with generic lists for both steps and ingredients, allowing for more flexibility and efficiency in handling data. Users can now add multiple recipes, which are stored for the duration of the application's runtime, providing a convenient way to manage and access recipes. Furthermore, a method to display the total calorie count has been added, giving users a quick overview of the nutritional information of their recipes. Additionally, the system now notifies the user if the total calorie count of their ingredients exceeds 300, helping them make healthier choices and avoid excessive calorie intake. Overall, these changes contribute to a more user-friendly and functional application.
+
+## Update v.0.3
+
+## Instructions
+
+Inorder to run this iteration of the appliction all previos steps must be followed, additionally at the top of VS the cog icon must be pressed and FoodAppWPF must be selected. From there hitting the run button will compile and display the GUI - the user guide provided will instruct you on how to use and navigate the application.
+
+## GitHub Commits
+
+![Screenshot (47)](https://github.com/JoshieBoy454/FoodApp/assets/130691091/f2b3d79d-5139-45fc-8904-406a4a95361c)
+
+## GitHub Link
+
+https://github.com/JoshieBoy454/FoodApp.git
+
+## Changes Part 3
+
+After carefull consideration of the feedback recieved for part to it was apparent that the core functionality of the applicaiton was bugged, the software would run into and error loop disallowing the user to enter any information, my fix was to redesign the way the application sorted the list of recipes. Chanaging the initial code from this(recipeList.Sort();) to this(recipeList.Sort((x, y) => x.name.CompareTo(y.name));).
+
+## User Mannual
+[User Manual for FoodApp.pdf](https://github.com/user-attachments/files/16021285/User.Manual.for.FoodApp.pdf)
+
