@@ -14,7 +14,7 @@ namespace FoodApp
     {
         ArrayList recipeArray = new ArrayList();
         double scale;
-        List<recipe> recipeList = new List<recipe>();
+        public List<recipe> recipeList = new List<recipe>();
         // defined a delegate for the notifications
         public delegate void CalorieNotificationDelegaet(recipe recipeName);
         public event CalorieNotificationDelegaet CalorieExceeded;
