@@ -154,7 +154,7 @@ namespace FoodApp
             {
                 Console.WriteLine("Please select the recipe you'd like to print");
                 Console.WriteLine("1. Manual search.");
-                recipeList.Sort();
+                recipeList.Sort((x, y) => x.name.CompareTo(y.name));
                 for (int x = 0; x < recipeList.Count; x++)
                 {
                     Console.WriteLine(x + 2 + ". " + recipeList[x].name);
@@ -235,7 +235,7 @@ namespace FoodApp
             {
                 Console.WriteLine("Please select the recipe you'd like to scale");
                 Console.WriteLine("1. Manual search.");
-                recipeList.Sort();
+                recipeList.Sort((x,y) => x.name.CompareTo(y.name));
                 for (int x = 0; x < recipeList.Count; x++)
                 {
                     Console.WriteLine(x + 2 + ". " + recipeList[x].name);
@@ -325,7 +325,7 @@ namespace FoodApp
         {
             Console.WriteLine("Please select the recipe whose scale you'd like to reset.");
             Console.WriteLine("1. Manual search.");
-            recipeList.Sort();
+            recipeList.Sort((x, y) => x.name.CompareTo(y.name));
             for (int x = 0; x < recipeList.Count; x++)
             {
                 Console.WriteLine(x + 2 + ". " + recipeList[x].name);
@@ -360,7 +360,7 @@ namespace FoodApp
             {
                 Console.WriteLine("Please select the recipe you'd like to scale");
                 Console.WriteLine("1. Manual search.");
-                recipeList.Sort();
+                recipeList.Sort((x, y) => x.name.CompareTo(y.name));
                 for (int x = 0; x < recipeList.Count; x++)
                 {
                     Console.WriteLine(x + 2 + ". " + recipeList[x].name);

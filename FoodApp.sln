@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodApp", "FoodApp.csproj", "{8AD0A0B6-FB3C-4827-B119-D4D3985C04A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAppTestProject", "..\FoodAppTestProject\FoodAppTestProject.csproj", "{4D6803AE-2E7F-4D24-81CE-3713B17E0553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodAppTestProject", "..\FoodAppTestProject\FoodAppTestProject.csproj", "{4D6803AE-2E7F-4D24-81CE-3713B17E0553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodAppWPF", "..\FoodAppWPF\FoodAppWPF.csproj", "{CA6844FB-46C6-440B-8EEC-6D4005759EAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4D6803AE-2E7F-4D24-81CE-3713B17E0553}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D6803AE-2E7F-4D24-81CE-3713B17E0553}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D6803AE-2E7F-4D24-81CE-3713B17E0553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6844FB-46C6-440B-8EEC-6D4005759EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6844FB-46C6-440B-8EEC-6D4005759EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6844FB-46C6-440B-8EEC-6D4005759EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6844FB-46C6-440B-8EEC-6D4005759EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
